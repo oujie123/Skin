@@ -88,6 +88,7 @@ public class SkinResources {
      */
     public int getColor(int resId) {
         //TODO 默认皮肤是否可以直接返回resId
+        //不可以，因为此处返回的是具体资源内容了通过id查到资源内容返回
         if (isDefaultSkin) {
             return mAppResources.getColor(resId, mContext.getTheme());
         }
@@ -98,16 +99,16 @@ public class SkinResources {
         return skinId;
     }
 
+    //getColorStateList该方法如果没有主题可以传空
     public ColorStateList getColorStateList(int resId) {
         if (isDefaultSkin) {
             return mAppResources.getColorStateList(resId, mContext.getTheme());
         }
         int skinId = getIdentifier(resId);
-       // Log.e(Constants.TAG, "skinId:" + skinId + ",ColorStateList + " + mSkinResources.getColorStateList(skinId, mContext.getTheme()));
         if (skinId == 0) {
             return mAppResources.getColorStateList(resId, mContext.getTheme());
         }
-        return mSkinResources.getColorStateList(skinId);
+        return mSkinResources.getColorStateList(skinId, null);
     }
 
     public Drawable getDrawable(int resId) {
@@ -120,7 +121,7 @@ public class SkinResources {
         if (skinId == 0) {
             return mAppResources.getDrawable(resId, mContext.getTheme());
         }
-        return mSkinResources.getDrawable(skinId, mContext.getTheme());
+        return mSkinResources.getDrawable(skinId, null);
     }
 
 
